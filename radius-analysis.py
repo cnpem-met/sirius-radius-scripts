@@ -33,8 +33,9 @@ def readCSV(fileDir):
 
 def readAllTxtInPath(path, mode):
     rawData, dateRef = [], []
-    expectedPtNames = {'external': ['RC1_Exter_P1', 'RC2_Exter_P1', 'RC3_Exter_P1', 'RC4_Exter_P1', 'RC5_Exter_P1'],\
-                        'internal': ['RC1', 'RC2', 'RC3', 'RC4', 'RC5']}
+    expectedPtNames = {'external': ['RC1_Exter_P1', 'RC2_Exter_P1', 'RC3_Exter_P1', 'RC4_Exter_P1', 'RC5_Exter_P1'],
+                        'internal': ['RC1', 'RC2', 'RC3', 'RC4', 'RC5'],
+                        'magnets': ['RC1_Ima', 'RC2_Ima', 'RC3_Ima', 'RC4_Ima', 'RC5_Ima']}
     # listing all files in path
     files = os.listdir(path)
     files_full_path = [os.path.join(path, file) for file in files]
@@ -260,8 +261,9 @@ def processRawData(rawData, mode):
     distances = []
     # defining the header of the final data structure
     # header = ['Run', 'RC1_ext_P1 (mm)', 'RC2_ext_P1 (mm)', 'RC3_ext_P1 (mm)', 'RC3_ext_P2 (mm)', 'RC4_ext_P1 (mm)', 'RC4_ext_P2 (mm)', 'RC5_ext_P1 (mm)', 'RC5_ext_P2 (mm)','Mean (mm)']
-    header = {'external': ['Run', 'RC1_ext_P1 (mm)', 'RC2_ext_P1 (mm)', 'RC3_ext_P1 (mm)', 'RC4_ext_P1 (mm)', 'RC5_ext_P1 (mm)','Mean (mm)'],\
-              'internal': ['Run', 'RC1 (mm)', 'RC2 (mm)', 'RC3 (mm)', 'RC4 (mm)', 'RC5 (mm)', 'Mean (mm)']}
+    header = {'external': ['Run', 'RC1_ext_P1 (mm)', 'RC2_ext_P1 (mm)', 'RC3_ext_P1 (mm)', 'RC4_ext_P1 (mm)', 'RC5_ext_P1 (mm)','Mean (mm)'],
+              'internal': ['Run', 'RC1 (mm)', 'RC2 (mm)', 'RC3 (mm)', 'RC4 (mm)', 'RC5 (mm)', 'Mean (mm)'],
+              'magnets': ['Run', 'RC1_ima (mm)', 'RC2_ima (mm)', 'RC3_ima (mm)', 'RC4_ima (mm)', 'RC5_ima (mm)', 'Mean (mm)']}
     # referencing datetimes
     dateRefs = rawData.index.get_level_values(0)
     # must slice the array once each date appears 5 times
@@ -300,24 +302,29 @@ if __name__ == "__main__":
     print('Select which type of analysis it will be:')
     print('\t1. Internal')
     print('\t2. External')
+    print('\t3. Magnets')
 
 
-    valid_options = ['1','2']
+
+    valid_options = ['1','2','3']
     while True:
-        mode_id = input('Enter option (1 or 2): ')
+        mode_id = input('Enter option (1,2 or 3): ')
         if (mode_id not in valid_options):
             print('Option not valid, please try again.\n')
             continue
 
         if (mode_id == '1'):
             mode = 'internal' # or "internal"
-            end_path = '\\pontos_internos'
+            end_path = 'pontos_internos'
         elif (mode_id == '2'):
             mode = 'external'
-            end_path = '\\pontos_externos'
+            end_path = 'pontos_externos'
+        elif (mode_id == '3'):
+            mode = 'magnets'
+            end_path = 'pontos_imas'
         break
             
-    # base_path = 'R:\\LNLS\\Grupos\\GAMS\\2_Projetos\\22_Monitoramento\\Blindagem\\Raio_Parede\\dados_e_resultados\\historico\\pilar_central' + end_path
+    # base_path = 'R:\\LNLS\\Grupos\\GAMS\\2_Projetos\\22_Monitoramento\\Blindagem\\Raio_Parede\\dados_e_resultados\\historico\\pilar_central\\' + end_path
     base_path = os.path.join(os.path.dirname(os.getcwd()),'dados_e_resultados', 'historico', 'pilar_central', end_path)
     
     print('Path to look for the files: ' + base_path + '\\txt\n')
