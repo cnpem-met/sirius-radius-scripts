@@ -33,5 +33,5 @@ The applied routine is as follows:
 - For the results to be correct, all points must be exported from SA based on the default Sirius CS/Frame, which is the Machine-local
 - For a .txt file to be valid, it has to have the following point names:  
 	[mode: internal] RC1, RC2, RC3, RC4, RC5  
-	[mode: external] RC1_Exter_P1, RC1_Exter_P2, RC1_Exter_P3, RC1_Exter_P4, RC1_Exter_P5
-	[mode: magnet] RC1_Ima, RC2_Ima, RC3_Ima, RC4_Ima, RC5_Ima
+	[mode: external] RC1_Exter_P1, RC1_Exter_P2, RC1_Exter_P3, RC1_Exter_P4, RC1_Exter_P5  
+	[mode: magnet] RC1_Ima, RC2_Ima, RC3_Ima, RC4_Ima, RC5_Ima  
